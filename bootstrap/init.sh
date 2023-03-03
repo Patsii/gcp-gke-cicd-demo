@@ -2,7 +2,7 @@
 # ACTION REQUIRED! Change "project-id-here" value to the project you'll be using
 export PROJECT_ID="tf-managed-project"
 # sets the current project for gcloud
-gcloud config set project $PROJECT_ID
+gcloud config set project tf-managed-project
 # Enables various APIs you'll need
 gcloud services enable container.googleapis.com cloudbuild.googleapis.com \
 artifactregistry.googleapis.com clouddeploy.googleapis.com \
@@ -12,5 +12,5 @@ gcloud artifacts repositories create hello-world-python --location=us-central1 \
 --repository-format=docker
 # creates the Google Cloud Deploy pipeline
 gcloud beta deploy apply --file clouddeploy.yaml \
---region=us-central1 --project=$PROJECT_ID
+--region=us-central1 --project=tf-managed-project
 echo "init done. To create clusters, run: ./gke-cluster-init.sh"

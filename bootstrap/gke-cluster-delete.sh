@@ -2,7 +2,7 @@
 # ACTION REQUIRED! Change "project-id-here" value to the project you'll be using
 export PROJECT_ID="project-id-here"
 # sets the current project for gcloud
-gcloud config set project $PROJECT_ID
+gcloud config set project tf-managed-project
 # Test cluster
 echo "Deleting testcluster..."
 gcloud container clusters delete testcluster --region "us-central1" --async
