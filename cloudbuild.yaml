@@ -12,13 +12,6 @@ steps:
     args: ["-m","pytest","unit_tests.py"]
     dir: 'app'
     id: test
-  # Verify code with sonarqube - Quality gate
-  #- name: 'gcr.io/tf-managed-project/sonar-scanner:latest'
-  #  entrypoint: 'bash'
-  #  args:
-  #  - -c
-  #  - /launch.sh -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$$SONAR_TOKEN -Dsonar.projectKey=$$SONAR_PROJECT_KEY -Dsonar.organization=$$SONAR_ORG -Dsonar.sources=./app -Dsonar.qualitygate.wait=false
-  #  secretEnv: ['SONAR_TOKEN','SONAR_ORG','SONAR_PROJECT_KEY']
   # Push docker image and save image digest for kritis check
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/tf-managed-project/hello-world-python/hello-world-python:${COMMIT_SHA}']
@@ -34,11 +27,3 @@ steps:
         "--annotations", "commitId=${REVISION_ID}",
         "--images", "hello-world-python=us-central1-docker.pkg.dev/tf-managed-project/hello-world-python/hello-world-python:${COMMIT_SHA}"
       ]
-#availableSecrets:
-#  secretManager:
-#  - versionName: projects/tf-managed-project/secrets/sonar_token/versions/4
-#    env: 'SONAR_TOKEN'
-#  - versionName: projects/tf-managed-project/secrets/sonar_org/versions/1
-#    env: 'SONAR_ORG'
-#  - versionName: projects/tf-managed-project/secrets/sonar_project_key/versions/1
-#    env: 'SONAR_PROJECT_KEY'
